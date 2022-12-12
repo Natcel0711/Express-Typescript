@@ -13,6 +13,6 @@ app.get('/', (req, res)=>{
     res.status(200).sendFile(path.join(__dirname+'/pages/welcome.html'))
 })
 
-app.get('/yellow', (req,res)=>{
+app.get('/pueblos', (req,res)=>{
     res.status(200).send(municipios)
 })

@@ -1,37 +1,92 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Welcome</title>
-	<style>
-		body {
-			font-family: sans-serif;
-			text-align: center;
-			padding: 50px;
-			background-image: url('background.jpg');
-			background-size: cover;
-			color: #333;
+<html data-theme="corporate">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.43.1/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script>
+      let directories = [
+		{
+			title:'Municipios',
+			description:'All the municipalities in JSON format',
+			href:'/pueblos',
+			image:'https://i0.wp.com/www.hachettebookgroup.com/wp-content/uploads/2019/01/00_01_PuertoRico.jpg?ssl=1'
 		}
-		h1 {
-			font-size: 2em;
-			margin-bottom: 0.5em;
-		}
-		p {
-			font-size: 1.2em;
-			margin-bottom: 1em;
-		}
-		a {
-			color: #0085c8;
-			text-decoration: none;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-	</style>
-</head>
-<body>
-	<h1>Welcome to our website!</h1>
-	<p>We are delighted that you have chosen to visit us. Our website is designed to provide you with all the information you need about our company and the products and services we offer.</p>
-	<p>We pride ourselves on being a customer-focused organization, and we strive to provide the best possible experience for all of our visitors. If you have any questions or need assistance, please don't hesitate to <a href="/yellow">contact us</a>.</p>
-	<p>Thank you for visiting, and we hope you have a wonderful day!</p>
-</body>
+	  ];
+      $(document).ready(function () {
+        $.each(directories, function (index, value) {
+          directories.forEach((element) => {
+            $("#directoriesDiv").append(
+              `<div class="card w-96 bg-base-100 shadow-xl image-full"><figure><img src=${element.image} alt="Shoes" /></figure><div class="card-body"> <h2 class="card-title">${element.title}</h2> <p>${element.description}</p><div class="card-actions justify-end"><a href=${element.href} class="btn btn-accent">Open</a></div></div></div>`
+            );
+          });
+        });
+      });
+    </script>
+    <title>Welcome</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 50px;
+        background-image: url("background.jpg");
+        background-size: cover;
+        color: #333;
+      }
+      h1 {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+      }
+      p {
+        font-size: 1.2em;
+        margin-bottom: 1em;
+      }
+      a {
+        color: #0085c8;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
+      Welcome!
+    </h1>
+    <p class="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
+      An API, or application programming interface, is a set of rules and
+      protocols that allows different software applications to communicate with
+      each other. In the case of your API, it allows users to access data about
+      Puerto Rico in the form of JSON, or JavaScript Object Notation, which is a
+      common format for representing and transmitting data on the web.
+    </p>
+
+    <p class="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
+      This API provides users with detailed information about various aspects of
+      Puerto Rico, such as its geography, demographics, culture, and economy.
+      This information is organized and structured in a way that makes it easy
+      for users to access and use in their own applications or projects. By
+      making this information available through your API, you are enabling
+      developers and other users to build and create new applications and
+      services that can provide valuable insights and information about Puerto
+      Rico to a wide audience.
+    </p>
+
+    <p class="mt-6 mb-5 text-lg leading-8 text-gray-600 sm:text-center">
+      Overall, this API is a valuable tool for anyone who is interested in
+      learning more about Puerto Rico and its rich history and culture. Whether
+      you are a developer looking to integrate data about Puerto Rico into your
+      own projects, or simply someone who is curious about this beautiful
+      island, your API is a great resource for accessing high-quality, accurate,
+      and up-to-date information.
+    </p>
+	<div class="divider"></div>
+    <div id="directoriesDiv" class="grid grid-cols-4 gap-4">
+    </div>
+  </body>
 </html>
