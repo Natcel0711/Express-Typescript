@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction, response } from 'express'
+import path from 'path';
 import { municipios } from './helper';
 
 const app = express();
@@ -9,9 +10,7 @@ app.listen(PORT, () => {
 })
 
 app.get('/', (req, res)=>{
-    res.status(200).send(
-        `<div><h1>Welcome</h1></div><div><a href="/yellow">Click me</a></div>`
-    )
+    res.status(200).sendFile(path.join(__dirname+'/pages/welcome.html'))
 })
 
 app.get('/yellow', (req,res)=>{
