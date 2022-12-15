@@ -79,3 +79,21 @@ export let municipios:Array<string> = [
     "Yabucoa",
     "Yauco"
     ]
+
+
+export const convertAcreToSquareFeet = async (cuerdas:string) => {
+    let x:number = +cuerdas;
+    return (0.97 * x) * 43560
+}
+export const convertAcreToSquareYards = async (cuerdas:string) => {
+    let x:number = +cuerdas;
+    return (0.97 * x) * 4840
+}
+export const convertAcreToSquareMiles = async (cuerdas:string) => {
+    let x:number = +cuerdas;
+    return (0.97 * x) / 640
+}
+export const convertAcreToHectares = async (cuerdas:string) => {
+    let x:number = +cuerdas;
+    return (0.97 * x) * 0.404686
+}
