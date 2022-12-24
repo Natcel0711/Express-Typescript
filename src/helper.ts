@@ -1,4 +1,5 @@
 import { chromium, Page } from "playwright";
+import axios from 'axios';
 
 export let municipios: Array<string> = [
   "Adjuntas",
@@ -96,6 +97,10 @@ interface Pueblo {
     Telefono: string;
     Fax: string;
   }
+  interface ImageURL{
+    Municipio:string;
+    URL:string;
+  }
 export const convertAcreToSquareFeet = async (cuerdas: string) => {
   let x: number = +cuerdas;
   return 0.97 * x * 43560;
@@ -125,6 +130,20 @@ export const statsPueblo = async (pueblo:string):Promise<Pueblo> => {
     
       // If no match was found, return null.
       return null;
+}
+export const flagPueblo = async (pueblo:string):Promise<ImageURL> => {
+  var fs = require('fs');
+  const data = await fs.promises.readFile('flags.json', 'utf8');
+  const flags: ImageURL[] = JSON.parse(data);
+  for (const flag of flags) {
+      if (flag.Municipio.toLowerCase() === pueblo) {
+        // If a match is found, return the object.
+        return flag;
+      }
+    }
+  
+    // If no match was found, return null.
+    return null;
 }
 export const BuscarStatsDePueblo = async (pueblo: string) => {
   try {
@@ -199,3 +218,28 @@ async function findAnchorTag(page: Page, str: string): Promise<string[]> {
     console.log("Error: ", e);
   }
 }
+
+export async function getFirstImageUrl(query: string): Promise<string> {
+  // Set up the URL for the Google search API
+  const searchUrl = 'https://www.googleapis.com/customsearch/v1';
+  // Replace YOUR_API_KEY with your own API key, which you can obtain from the Google API Console (https://console.developers.google.com/)
+  const apiKey = 'PLACEHOLDER';
+  // Replace YOUR_SEARCH_ENGINE_ID with your own search engine ID, which you can find in the Google Custom Search Engine control panel (https://cse.google.com/cse/all)
+  const searchEngineId = 'PLACEHOLDER';
+  // Set the search query
+  const params = {
+    q: query,
+    searchType: 'image',
+    num: 1,
+    key: apiKey,
+    cx: searchEngineId
+  };
+  // Make the request to the Google search API
+  const response = await axios.get(searchUrl, { params });
+  // Extract the first image result URL from the response
+  const firstImageUrl = response.data.items[0].link;
+  // Return the first image result URL
+  return firstImageUrl;
+}
+
+

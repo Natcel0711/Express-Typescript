@@ -6,15 +6,16 @@ import {
   convertAcreToSquareMiles,
   convertAcreToSquareYards,
   convertAcreToHectares,
-  BuscarStatsDePueblo,
   statsPueblo,
+  getFirstImageUrl,
+  flagPueblo,
 } from "./helper";
 
 const app = express();
 const PORT = 8080;
 
 app.use(express.urlencoded());
-app.use(express.json())
+app.use(express.json());
 
 app.listen(PORT, () => {
   console.log(`Listening on port http://localhost:${PORT}`);
@@ -25,9 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/pueblos", (req, res) => {
-  res.status(200).end(
-    JSON.stringify({municipios:municipios})
-    );
+  res.status(200).end(JSON.stringify({ municipios: municipios }));
 });
 
 app.get("/Cuerdas", (req, res) => {
@@ -48,27 +47,57 @@ app.post("/cuerdas/convert", async (req, res) => {
   }
   res.status(200).end(
     JSON.stringify({
-    result: result,
-  }));
+      result: result,
+    })
+  );
 });
 
-app.get("/pueblo", async (req , res) => {
-    try{
-        const pueblo = req.body.pueblo
-    if(!pueblo)
-        res.status(400).end(JSON.stringify({
-            error: "Se require un pueblo"
-        }))
-        const result = await statsPueblo(pueblo)
-        return res.status(200).end(JSON.stringify({
-            pueblo: result
-        }))
-    }
-    catch(e){
-        res.status(404).end(JSON.stringify(
-            {
-                error:e
-            }
-        ))
-    }
-})
+app.get("/pueblo", async (req, res) => {
+  try {
+    const pueblo = req.body.pueblo;
+    if (!pueblo)
+      res.status(400).end(
+        JSON.stringify({
+          error: "Se require un pueblo",
+        })
+      );
+    const result = await statsPueblo(pueblo);
+    res.setHeader("Content-Type", "application/json");
+    return res.status(200).end(
+      JSON.stringify({
+        pueblo: result,
+      })
+    );
+  } catch (e) {
+    res.status(404).end(
+      JSON.stringify({
+        error: e,
+      })
+    );
+  }
+});
+
+app.get("/imagen", async (req, res) => {
+  try {
+    const pueblo:string = req.body.pueblo;
+    if (!pueblo)
+      res.status(400).end(
+        JSON.stringify({
+          error: "Se require un pueblo",
+        })
+      );
+      const result = await flagPueblo(pueblo.toLowerCase());
+    res.setHeader("Content-Type", "application/json");
+    return res.status(200).end(
+      JSON.stringify({
+        url: result.URL,
+      })
+    );
+  } catch (err) {
+    res.status(404).end(
+      JSON.stringify({
+        error: "Not found",
+      })
+    );
+  }
+});
