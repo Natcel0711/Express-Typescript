@@ -7,7 +7,6 @@ import {
   convertAcreToSquareYards,
   convertAcreToHectares,
   statsPueblo,
-  getFirstImageUrl,
   flagPueblo,
 } from "./helper";
 

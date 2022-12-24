@@ -13,7 +13,7 @@
 		{
 			title:'Municipios',
 			description:'All the municipalities in JSON format',
-			href:'/pueblos',
+			href:'/pueblos or /pueblo/{pueblo}',
 			image:'https://i0.wp.com/www.hachettebookgroup.com/wp-content/uploads/2019/01/00_01_PuertoRico.jpg?ssl=1'
 		},
     {
@@ -21,12 +21,27 @@
       description:'Convert cuerdas',
       href:'/cuerdas',
       image:'https://mediavault.point2.com/p2h/listing/c435/bfb6/7a69/81f84f1753ca37490a53/wm_large.jpg'
+    },
+    {
+      title:'Flags',
+      description:'Get every flag from PR.',
+      href:'/imagen/{pueblo}',
+      image:'https://images.unsplash.com/photo-1511627456396-f96502ae8124?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHVlcnRvJTIwcmljbyUyMGZsYWd8ZW58MHx8MHx8&w=1000&q=80'
     }
 	  ];
       $(document).ready(function () {
           directories.forEach((element) => {
             $("#directoriesDiv").append(
-              `<div class="card w-96 bg-base-100 shadow-xl image-full"><figure><img src=${element.image} alt="Shoes" /></figure><div class="card-body"> <h2 class="card-title">${element.title}</h2> <p>${element.description}</p><div class="card-actions justify-end"><a href=${element.href} class="btn btn-accent">Open</a></div></div></div>`
+              `<div class="card lg:card-side bg-base-100 shadow-xl">
+  <figure><img src=${element.image} alt="Album"/></figure>
+  <div class="card-body">
+    <h2 class="card-title">${element.title}</h2>
+    <p>${element.description}</p>
+    <div class="card-actions">
+      <p><strong>${element.href}</strong></p>
+    </div>
+  </div>
+</div>`
             );
           });
       });
